@@ -1,0 +1,490 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{66F6D7DA-7399-4D6D-9030-59FF56A6B246}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>libsannNETWorkbenchToolkit</RootNamespace>
+    <AssemblyName>libsannNETWorkbenchToolkit</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\libsann\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject">
+      <HintPath>..\libsann\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AppCore.cs" />
+    <Compile Include="Configuration\BackPropUi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Configuration\BackPropUi.Designer.cs">
+      <DependentUpon>BackPropUi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Configuration\RPropUi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Configuration\RPropUi.Designer.cs">
+      <DependentUpon>RPropUi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExceptionHandling\ExceptionManager.cs" />
+    <Compile Include="Lib\Ann.cs" />
+    <Compile Include="Configuration\AnnBuild.cs" />
+    <Compile Include="Configuration\BackPropagation.cs" />
+    <Compile Include="Configuration\ResilientPropagation.cs" />
+    <Compile Include="MainConsole.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainConsole.Designer.cs">
+      <DependentUpon>MainConsole.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Configuration\ModelOptionsUi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Configuration\ModelOptionsUi.Designer.cs">
+      <DependentUpon>ModelOptionsUi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NinjectMod.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Set\SetLoader.cs" />
+    <Compile Include="Set\SetModel.cs" />
+    <Compile Include="Set\SetUi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Set\SetUi.Designer.cs">
+      <DependentUpon>SetUi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\ConfigurationFile.cs" />
+    <Compile Include="Utils\Export.cs" />
+    <Compile Include="Utils\Global.cs" />
+    <Compile Include="Utils\FormLoggable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Utils\ObjectLoggable.cs" />
+    <Compile Include="Utils\ObjectXMLSerializer.cs" />
+    <EmbeddedResource Include="Configuration\BackPropUi.resx">
+      <DependentUpon>BackPropUi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuration\RPropUi.resx">
+      <DependentUpon>RPropUi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainConsole.resx">
+      <DependentUpon>MainConsole.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuration\ModelOptionsUi.resx">
+      <DependentUpon>ModelOptionsUi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="Set\SetUi.resx">
+      <DependentUpon>SetUi.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\arrow_down.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow_left.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow_left-down.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow_left-up.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow_right.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow_right-down.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow_right-up.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow_up.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\attention.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\backward.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bag.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\base.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bonus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bug.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\calculator.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\calendar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cd_dvd.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\check.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\check_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\check-64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\close_delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\close_delete_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\closed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\comment.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\computer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\computer_monitor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\copy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\credit_card.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\credit_card_back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cut.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\delete_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\document_file.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\email.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\eraser.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\favorite_love.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\flag_mark_blue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\flag_mark_gray.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\flag_mark_green.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\flag_mark_red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\flag_mark_violet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\flag_mark_yellow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\folder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\forward.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\friends_group.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\help.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\help_ring-buoy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\home.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\information.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ipod.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\key_login.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\lamp_active.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\lamp_inactive.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\lock.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\minus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\minus_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\mobile_phone.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\network.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\network_close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\new_email.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\next.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\opened.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\options.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\options_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\paste.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pause.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pencil_edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pie-chart_diagram.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pie-chart_graph.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\play.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\plus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\plus_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\previous.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\printer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\radio-button_off.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\radio-button_on.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\record.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\refresh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rss.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\save_as.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\save_diskette_floppy_disk.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\search_lense.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\shield_protect_off.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\shield_protect_on.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\shopping_cart.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\shopping_cart_empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\smartphone_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\smartphone_iphone.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sound_music-off.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sound_music-on.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\star.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\star_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\star_3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\stop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\stop_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tag_blue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tag_gray.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tag_green.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tag_orange.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tag_red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tag_violet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tag_white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tag_yellow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\time_clock.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\trash_box.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\trash_box_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\unlock.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\user_friend.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\user_woman.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\vote_no.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\vote_yes.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\wizard.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\libsannNET\libsannNET.csproj">
+      <Project>{95bd3249-4f09-4880-b368-dcb6fd4e65b7}</Project>
+      <Name>libsannNET</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

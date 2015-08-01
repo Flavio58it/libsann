@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="libsann\BackPropagation.cpp" />
+    <ClCompile Include="libsann\Bias.cpp" />
+    <ClCompile Include="libsann\ContextLayer.cpp" />
+    <ClCompile Include="libsann\ContextNeuron.cpp" />
+    <ClCompile Include="libsann\ElmanMlp.cpp" />
+    <ClCompile Include="libsann\FeedForwardLayer.cpp" />
+    <ClCompile Include="libsann\InputLayer.cpp" />
+    <ClCompile Include="libsann\invoke.cpp" />
+    <ClCompile Include="libsann\Kneuron.cpp" />
+    <ClCompile Include="libsann\Kohonenmap.cpp" />
+    <ClCompile Include="libsann\LayerBase.cpp" />
+    <ClCompile Include="libsann\MAdeline.cpp" />
+    <ClCompile Include="libsann\Mlp.cpp" />
+    <ClCompile Include="libsann\NetBase.cpp" />
+    <ClCompile Include="libsann\Neuron.cpp" />
+    <ClCompile Include="libsann\Pattern.cpp" />
+    <ClCompile Include="libsann\PropagationBase.cpp" />
+    <ClCompile Include="libsann\PropStatsListener.cpp" />
+    <ClCompile Include="libsann\ResilientPropagation.cpp" />
+    <ClCompile Include="libsann\Som.cpp" />
+    <ClCompile Include="libsann\SomLearning.cpp" />
+    <ClCompile Include="libsann\Synapse.cpp" />
+    <ClCompile Include="libsann\Trainingset.cpp" />
+    <ClCompile Include="libsann\Unit.cpp" />
+    <ClCompile Include="libsann\WindrowHoff.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="libsann\Activation.hpp" />
+    <ClInclude Include="libsann\BackPropagation.h" />
+    <ClInclude Include="libsann\Bias.h" />
+    <ClInclude Include="libsann\ContextLayer.h" />
+    <ClInclude Include="libsann\ContextNeuron.h" />
+    <ClInclude Include="libsann\DataNormalization.hpp" />
+    <ClInclude Include="libsann\ElmanMlp.h" />
+    <ClInclude Include="libsann\FeedForwardLayer.h" />
+    <ClInclude Include="libsann\FeedForwardNetwork.h" />
+    <ClInclude Include="libsann\Global.h" />
+    <ClInclude Include="libsann\InputLayer.h" />
+    <ClInclude Include="libsann\InputNeuron.h" />
+    <ClInclude Include="libsann\Kneuron.h" />
+    <ClInclude Include="libsann\Kohonenmap.h" />
+    <ClInclude Include="libsann\LayerBase.h" />
+    <ClInclude Include="libsann\MAdeline.h" />
+    <ClInclude Include="libsann\Mlp.h" />
+    <ClInclude Include="libsann\NetBase.h" />
+    <ClInclude Include="libsann\Neuron.h" />
+    <ClInclude Include="libsann\Pattern.h" />
+    <ClInclude Include="libsann\PropagationBase.h" />
+    <ClInclude Include="libsann\PropStatsListener.h" />
+    <ClInclude Include="libsann\ResilientPropagation.h" />
+    <ClInclude Include="libsann\Som.h" />
+    <ClInclude Include="libsann\SomLearning.h" />
+    <ClInclude Include="libsann\Synapse.h" />
+    <ClInclude Include="libsann\Trainingset.h" />
+    <ClInclude Include="libsann\Unit.h" />
+    <ClInclude Include="libsann\WindrowHoff.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{D4F31963-6136-4FDA-8CE2-9DCC965C03A7}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>libsann</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <MinimalRebuild>false</MinimalRebuild>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
