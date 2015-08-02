@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using libsannNETWorkbenchToolkit.ExceptionHandling;
 using Ninject;
 
 namespace libsannNETWorkbenchToolkit.Configuration
@@ -26,22 +27,36 @@ namespace libsannNETWorkbenchToolkit.Configuration
 
         private void Setup()
         {
-            backPropComp = NinjectBinding.GetKernel.Get<BackPropagation>();
-            config = NinjectBinding.GetKernel.Get<ConfigurationFile>();
+            try
+            {
+                backPropComp = NinjectBinding.GetKernel.Get<BackPropagation>();
+                config = NinjectBinding.GetKernel.Get<ConfigurationFile>();
 
-            momentumNumericUpDown.Value = Convert.ToDecimal(backPropComp.Beta);
-            learningRateNumericUpDown.Value = Convert.ToDecimal(backPropComp.LearningRate);
+                momentumNumericUpDown.Value = Convert.ToDecimal(backPropComp.Beta);
+                learningRateNumericUpDown.Value = Convert.ToDecimal(backPropComp.LearningRate);
+            }
+            catch (Exception exception)
+            {
+                ExceptionManager.LogAndShowException(exception, "Error", logger);
+            }
         }
 
         private void saveClickHandler(object sender, EventArgs e)
         {
-            backPropComp.Beta = Convert.ToDouble(momentumNumericUpDown.Value);
-            backPropComp.LearningRate = Convert.ToDouble(learningRateNumericUpDown.Value);
+            try
+            {
+                backPropComp.Beta = Convert.ToDouble(momentumNumericUpDown.Value);
+                backPropComp.LearningRate = Convert.ToDouble(learningRateNumericUpDown.Value);
 
-            config.SaveBackPropToFile();
+                config.SaveBackPropToFile();
 
-            this.Dispose();
-            this.Close();
+                this.Dispose();
+                this.Close();
+            }
+            catch (Exception exception)
+            {
+                ExceptionManager.LogAndShowException(exception, "Error", logger);
+            }
         }
     }
 }

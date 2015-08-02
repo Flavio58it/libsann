@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Windows.Forms;
+using log4net;
 
 namespace libsannNETWorkbenchToolkit.ExceptionHandling
 {
@@ -13,10 +15,16 @@ namespace libsannNETWorkbenchToolkit.ExceptionHandling
             return (e.Message);
         }
 
+        internal static void LogAndShowException(Exception e, string caption, ILog logger)
+        {
+            var msg = Parse(e);
+            logger.ErrorFormat(msg + Environment.NewLine + e.StackTrace);
+            MessageBox.Show(msg, caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
         internal static void DomainUnhandledExceptionHandler(object sender, System.Threading.ThreadExceptionEventArgs e)
         {
-            // TODO: Implemento gestione delle eccezioni a livello globale
-            throw new NotImplementedException();
+            MessageBox.Show(Parse(e.Exception), "Unhandled exception", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
     }
 }

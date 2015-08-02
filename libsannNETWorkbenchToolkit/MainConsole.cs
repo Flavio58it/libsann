@@ -17,7 +17,11 @@ namespace libsannNETWorkbenchToolkit
         protected ConfigurationFile config;
         protected AppCore core;
 
-        protected enum AppStatus { READY, TRAINING }
+        protected enum AppStatus
+        {
+            READY,
+            TRAINING
+        }
 
         public MainConsole()
         {
@@ -42,7 +46,7 @@ namespace libsannNETWorkbenchToolkit
             }
             catch (Exception e)
             {
-                logger.ErrorFormat("Application setup: " + ExceptionManager.Parse(e) + Environment.NewLine + e.StackTrace);
+                ExceptionManager.LogAndShowException(e, "Error", logger);
             }
         }
 
@@ -63,28 +67,28 @@ namespace libsannNETWorkbenchToolkit
             switch (chart.Name)
             {
                 case "output_chart":
+                {
+                    List<double[][]> points = (values as List<double[][]>);
+                    List<double> outputs = new List<double>();
+                    List<double> target = new List<double>();
+
+                    foreach (double[][] data in points)
                     {
-                        List<double[][]> points = (values as List<double[][]>);
-                        List<double> outputs = new List<double>();
-                        List<double> target = new List<double>();
-
-                        foreach (double[][] data in points)
-                        {
-                            outputs.AddRange(data[0]);
-                            target.AddRange(data[1]);
-                        }
-
-                        chart.Series[0].Points.DataBindY(outputs);
-                        chart.Series[1].Points.DataBindY(target);
-
-                        break;
+                        outputs.AddRange(data[0]);
+                        target.AddRange(data[1]);
                     }
+
+                    chart.Series[0].Points.DataBindY(outputs);
+                    chart.Series[1].Points.DataBindY(target);
+
+                    break;
+                }
                 default:
-                    {
-                        List<double> points = (values as List<double>);
-                        chart.Series[0].Points.DataBindY(points);
-                        break;
-                    }
+                {
+                    List<double> points = (values as List<double>);
+                    chart.Series[0].Points.DataBindY(points);
+                    break;
+                }
             }
         }
 
@@ -93,19 +97,19 @@ namespace libsannNETWorkbenchToolkit
             switch (status)
             {
                 case AppStatus.TRAINING:
-                    {
-                        setupToolStripMenuItem.Enabled = false;
-                        startWorkBenchToolStripMenuItem.Enabled = false;
-                        exportToolStripMenuItem.Enabled = false;
-                        break;
-                    }
+                {
+                    setupToolStripMenuItem.Enabled = false;
+                    startWorkBenchToolStripMenuItem.Enabled = false;
+                    exportToolStripMenuItem.Enabled = false;
+                    break;
+                }
                 case AppStatus.READY:
-                    {
-                        setupToolStripMenuItem.Enabled = true;
-                        startWorkBenchToolStripMenuItem.Enabled = true;
-                        exportToolStripMenuItem.Enabled = true;
-                        break;
-                    }
+                {
+                    setupToolStripMenuItem.Enabled = true;
+                    startWorkBenchToolStripMenuItem.Enabled = true;
+                    exportToolStripMenuItem.Enabled = true;
+                    break;
+                }
             }
         }
 
@@ -114,39 +118,50 @@ namespace libsannNETWorkbenchToolkit
             switch (result)
             {
                 case TrainingResults.CONVERGENCE_NOT_REACHED:
-                    {
-                        MessageBox.Show(this, "Convergence to precision target not reached.", "Training result", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        break;
-                    }
+                {
+                    MessageBox.Show(this, "Convergence to precision target not reached.", "Training result",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                }
                 case TrainingResults.INTERNAL_ERROR:
-                    {
-                        MessageBox.Show(this, "Internal error occurred.", "Training result", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        break;
-                    }
+                {
+                    MessageBox.Show(this, "Internal error occurred.", "Training result", MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                    break;
+                }
                 case TrainingResults.MODEL_INVALID:
-                    {
-                        MessageBox.Show(this, "The data set is not valid.", "Training result", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        break;
-                    }
+                {
+                    MessageBox.Show(this, "The data set is not valid.", "Training result", MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                    break;
+                }
                 case TrainingResults.NOT_VALIDATED:
-                    {
-                        MessageBox.Show(this, 
-                            string.Format("Convergence has been reached. Network trained! But not validated, no validation data set present in the model.{0}Trained in {1} - Mse: {2}",
-                            Environment.NewLine, core.TrainingEpoch(), core.LastMse().ToString("F5")),"Training result", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        break;
-                    }
+                {
+                    MessageBox.Show(this,
+                        string.Format(
+                            "Convergence has been reached. Network trained! But not validated, no validation data set present in the model.{0}Trained in {1} - Mse: {2}",
+                            Environment.NewLine, core.TrainingEpoch(), core.LastMse().ToString("F5")), "Training result",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                }
                 case TrainingResults.TRAINING_SUCCESS:
-                    {
-                        MessageBox.Show(this, string.Format("Convergence has been reached. Network trained and validated!{0}Trained in {1} - Mse: {2}",
-                            Environment.NewLine, core.TrainingEpoch(), core.LastMse().ToString("F5"), "Training result", MessageBoxButtons.OK, MessageBoxIcon.Exclamation));
-                        break;
-                    }
+                {
+                    MessageBox.Show(this,
+                        string.Format(
+                            "Convergence has been reached. Network trained and validated!{0}Trained in {1} - Mse: {2}",
+                            Environment.NewLine, core.TrainingEpoch(), core.LastMse().ToString("F5"), "Training result",
+                            MessageBoxButtons.OK, MessageBoxIcon.Exclamation));
+                    break;
+                }
                 case TrainingResults.VALIDATION_FAIL:
-                    {
-                        MessageBox.Show(this, string.Format("Convergence has been reached but the network hasn't passed the validation test.{0}Trained in {1} - Mse: {2}",
-                            Environment.NewLine, core.TrainingEpoch(), core.LastMse().ToString("F5")), "Training result", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        break;
-                    }
+                {
+                    MessageBox.Show(this,
+                        string.Format(
+                            "Convergence has been reached but the network hasn't passed the validation test.{0}Trained in {1} - Mse: {2}",
+                            Environment.NewLine, core.TrainingEpoch(), core.LastMse().ToString("F5")), "Training result",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                }
             }
         }
 
@@ -154,72 +169,78 @@ namespace libsannNETWorkbenchToolkit
 
         protected void toolStripMenuItemClickHandler(object sender, EventArgs e)
         {
-            if (string.Equals((sender as ToolStripMenuItem).Name, "generateExampleLayoutToolStripMenuItem"))
+            try
             {
-
-            }
-            if (string.Equals((sender as ToolStripMenuItem).Name, "cSVToolStripMenuItem"))
-            {
-                // Load data set from a csv file
-                OpenFileDialog dialog = new OpenFileDialog();
-                dialog.Filter = "csv|*.csv";
-                dialog.Title = "Set file";
-                dialog.ShowDialog();
-                string path = dialog.FileName;
-
-                if (string.IsNullOrWhiteSpace(path))
-                    return;
-
-                SetLoader.LoadFromCsv(path);
-            }
-            if (string.Equals((sender as ToolStripMenuItem).Name, "setToolStripMenuItem"))
-            {
-                // Open set gui to view/edit the patterns
-                SetUi setUi = new SetUi();
-                setUi.ShowDialog(this);
-            }
-            if (string.Equals((sender as ToolStripMenuItem).Name, "configurationToolStripMenuItem"))
-            {
-                // Open the options gui
-                ModelOptionsUi configGUI = new ModelOptionsUi();
-                configGUI.ShowDialog(this);
-
-                // Rebuild network
-                AppCoreSetup();
-            }
-            if (string.Equals((sender as ToolStripMenuItem).Name, "startWorkBenchToolStripMenuItem"))
-            {
-                GuiBehavior(AppStatus.TRAINING);
-
-                TrainingResults result = TrainingResults.INTERNAL_ERROR;
-
-                ThreadStart worker = delegate
+                if (string.Equals((sender as ToolStripMenuItem).Name, "generateExampleLayoutToolStripMenuItem"))
                 {
-                    // Run network training
-                    result = core.Train(NinjectBinding.GetKernel.Get<SetModel>()).Result;
-                };
+                }
+                if (string.Equals((sender as ToolStripMenuItem).Name, "cSVToolStripMenuItem"))
+                {
+                    // Load data set from a csv file
+                    OpenFileDialog dialog = new OpenFileDialog();
+                    dialog.Filter = "csv|*.csv";
+                    dialog.Title = "Set file";
+                    dialog.ShowDialog();
+                    string path = dialog.FileName;
 
-                Thread waitTraining = new Thread(worker);
-                waitTraining.Start();
+                    if (string.IsNullOrWhiteSpace(path))
+                        return;
 
-                while (waitTraining.IsAlive)
-                    Application.DoEvents();
+                    SetLoader.LoadFromCsv(path);
+                }
+                if (string.Equals((sender as ToolStripMenuItem).Name, "setToolStripMenuItem"))
+                {
+                    // Open set gui to view/edit the patterns
+                    SetUi setUi = new SetUi();
+                    setUi.ShowDialog(this);
+                }
+                if (string.Equals((sender as ToolStripMenuItem).Name, "configurationToolStripMenuItem"))
+                {
+                    // Open the options gui
+                    ModelOptionsUi configGUI = new ModelOptionsUi();
+                    configGUI.ShowDialog(this);
 
-                ProcessingTrainingResult(result);
+                    // Rebuild network
+                    AppCoreSetup();
+                }
+                if (string.Equals((sender as ToolStripMenuItem).Name, "startWorkBenchToolStripMenuItem"))
+                {
+                    GuiBehavior(AppStatus.TRAINING);
 
-                GuiBehavior(AppStatus.READY);
+                    TrainingResults result = TrainingResults.INTERNAL_ERROR;
+
+                    ThreadStart worker = delegate
+                    {
+                        // Run network training
+                        result = core.Train(NinjectBinding.GetKernel.Get<SetModel>()).Result;
+                    };
+
+                    Thread waitTraining = new Thread(worker);
+                    waitTraining.Start();
+
+                    while (waitTraining.IsAlive)
+                        Application.DoEvents();
+
+                    ProcessingTrainingResult(result);
+
+                    GuiBehavior(AppStatus.READY);
+                }
+                if (string.Equals((sender as ToolStripMenuItem).Name, "exitToolStripMenuItem"))
+                {
+                    // Dispose modules
+
+                    // Before exit release the application resources
+                    this.Dispose();
+                    Application.Exit();
+                }
+                if (string.Equals((sender as ToolStripMenuItem).Name, "exportToolStripMenuItem"))
+                {
+                    // TODO: che fare qui??
+                }
             }
-            if (string.Equals((sender as ToolStripMenuItem).Name, "exitToolStripMenuItem"))
+            catch (Exception exception)
             {
-                // Dispose modules
-
-                // Before exit release the application resources
-                this.Dispose();
-                Application.Exit();
-            }
-            if (string.Equals((sender as ToolStripMenuItem).Name, "exportToolStripMenuItem"))
-            {
-                
+                ExceptionManager.LogAndShowException(exception, "Error", logger);
             }
         }
 

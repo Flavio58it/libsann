@@ -16,10 +16,9 @@ namespace libsannNETWorkbenchToolkit
         [STAThread]
         static void Main()
         {
-            Application.ThreadException += 
-                new System.Threading.ThreadExceptionEventHandler(ExceptionManager.DomainUnhandledExceptionHandler);
+            Application.ThreadException += ExceptionManager.DomainUnhandledExceptionHandler;
 
-            // Solve dependencies with Ninject
+            // Resolve dependencies with Ninject
             var binding = new NinjectBinding();
             binding.Load();
 

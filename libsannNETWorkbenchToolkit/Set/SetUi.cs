@@ -5,7 +5,6 @@ using System.Linq;
 using System.Windows.Forms;
 using System.IO;
 using Ninject;
-using log4net;
 
 namespace libsannNETWorkbenchToolkit.Set
 {
@@ -24,76 +23,111 @@ namespace libsannNETWorkbenchToolkit.Set
 
         protected void Setup()
         {
-            set = NinjectBinding.GetKernel.Get<SetModel>();
-
-            if(set.inMatrix != null && set.outMatrix != null && set.inValMatrix != null && set.outValMatrix != null &&
-                set.inMatrix.Any() && set.outMatrix.Any() && set.inValMatrix.Any() && set.outValMatrix.Any())
+            try
             {
-                inputSetDataGridView.DataSource = BuildDataTable(set.inMatrix);
-                outputSetDataGridView.DataSource = BuildDataTable(set.outMatrix);
-                inValidationSetDataGridView.DataSource = BuildDataTable(set.inValMatrix);
-                outValidationSetDataGridView.DataSource = BuildDataTable(set.outValMatrix);
-            }
+                set = NinjectBinding.GetKernel.Get<SetModel>();
 
-            saveInputBtn.Enabled = false;
-            saveOutputBtn.Enabled = false;
-            saveInValBtn.Enabled = false;
-            saveOutValBtn.Enabled = false;
+                if (set.inMatrix != null && set.outMatrix != null && set.inValMatrix != null && set.outValMatrix != null &&
+                    set.inMatrix.Any() && set.outMatrix.Any() && set.inValMatrix.Any() && set.outValMatrix.Any())
+                {
+                    inputSetDataGridView.DataSource = BuildDataTable(set.inMatrix);
+                    outputSetDataGridView.DataSource = BuildDataTable(set.outMatrix);
+                    inValidationSetDataGridView.DataSource = BuildDataTable(set.inValMatrix);
+                    outValidationSetDataGridView.DataSource = BuildDataTable(set.outValMatrix);
+                }
+
+                saveInputBtn.Enabled = false;
+                saveOutputBtn.Enabled = false;
+                saveInValBtn.Enabled = false;
+                saveOutValBtn.Enabled = false;
+            }
+            catch (Exception exception)
+            {
+                ExceptionManager.LogAndShowException(exception, "Error", logger);
+            }
         }
 
         #region [ GUI Handler ]
 
         private void ClosingHandler(object sender, FormClosingEventArgs e)
         {
-            this.Dispose();
+            try
+            {
+                Dispose();
+            }
+            catch (Exception exception)
+            {
+                ExceptionManager.LogAndShowException(exception, "Error", logger);
+            }
         }
 
         private void buttonClickHandler(object sender, EventArgs e)
         {
-            if(string.Equals((sender as Button).Name, "saveInputBtn"))
+            try
             {
-                if(Save(inputSetDataGridView))
-                    saveInputBtn.Enabled = false;
+                if (string.Equals((sender as Button).Name, "saveInputBtn"))
+                {
+                    if (Save(inputSetDataGridView))
+                        saveInputBtn.Enabled = false;
+                }
+                if (string.Equals((sender as Button).Name, "saveOutputBtn"))
+                {
+                    if (Save(outputSetDataGridView))
+                        saveOutputBtn.Enabled = false;
+                }
+                if (string.Equals((sender as Button).Name, "saveInValBtn"))
+                {
+                    if (Save(inValidationSetDataGridView))
+                        saveInValBtn.Enabled = false;
+                }
+                if (string.Equals((sender as Button).Name, "saveOutValBtn"))
+                {
+                    if (Save(outValidationSetDataGridView))
+                        saveOutValBtn.Enabled = false;
+                }
             }
-            if(string.Equals((sender as Button).Name, "saveOutputBtn"))
+            catch (Exception exception)
             {
-                if(Save(outputSetDataGridView))
-                    saveOutputBtn.Enabled = false;
-            }
-            if(string.Equals((sender as Button).Name, "saveInValBtn"))
-            {
-                if(Save(inValidationSetDataGridView))
-                    saveInValBtn.Enabled = false;
-            }
-            if(string.Equals((sender as Button).Name, "saveOutValBtn"))
-            {
-                if(Save(outValidationSetDataGridView))
-                    saveOutValBtn.Enabled = false;
+                ExceptionManager.LogAndShowException(exception, "Error", logger);
             }
         }
 
         private void setChangedHandler(object sender, DataGridViewCellEventArgs e)
         {
-            if(string.Equals((sender as DataGridView).Name, "inputSetDataGridView"))
-                saveInputBtn.Enabled = true;
-            if(string.Equals((sender as DataGridView).Name, "outputSetDataGridView"))
-                saveOutputBtn.Enabled = true;
-            if(string.Equals((sender as DataGridView).Name, "inValidationSetDataGridView"))
-                saveInValBtn.Enabled = true;
-            if(string.Equals((sender as DataGridView).Name, "outValidationSetDataGridView"))
-                saveOutValBtn.Enabled = true;
+            try
+            {
+                if (string.Equals((sender as DataGridView).Name, "inputSetDataGridView"))
+                    saveInputBtn.Enabled = true;
+                if (string.Equals((sender as DataGridView).Name, "outputSetDataGridView"))
+                    saveOutputBtn.Enabled = true;
+                if (string.Equals((sender as DataGridView).Name, "inValidationSetDataGridView"))
+                    saveInValBtn.Enabled = true;
+                if (string.Equals((sender as DataGridView).Name, "outValidationSetDataGridView"))
+                    saveOutValBtn.Enabled = true;
+            }
+            catch (Exception exception)
+            {
+                ExceptionManager.LogAndShowException(exception, "Error", logger);
+            }
         }
 
         private void menuCickHandler(object sender, EventArgs e)
         {
-            SaveFileDialog dialog = new SaveFileDialog();
-            dialog.Filter = "csv files (*csv)|*.csv";
-            dialog.RestoreDirectory = true;
-            if(dialog.ShowDialog(this) == DialogResult.OK)
+            try
             {
-                Stream stream = dialog.OpenFile();
-                Export.SetToFile(stream ,set);
-            }            
+                SaveFileDialog dialog = new SaveFileDialog();
+                dialog.Filter = "csv files (*csv)|*.csv";
+                dialog.RestoreDirectory = true;
+                if (dialog.ShowDialog(this) == DialogResult.OK)
+                {
+                    Stream stream = dialog.OpenFile();
+                    Export.SetToFile(stream, set);
+                }
+            }
+            catch (Exception exception)
+            {
+                ExceptionManager.LogAndShowException(exception, "Error", logger);
+            }
         }
 
         #endregion
@@ -134,7 +168,7 @@ namespace libsannNETWorkbenchToolkit.Set
             }
             catch(Exception e)
             {
-                logger.ErrorFormat(ExceptionManager.Parse(e) + Environment.NewLine + e.StackTrace);
+                ExceptionManager.LogAndShowException(e, "Error", logger);
             }
 
             return false;
