@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using Ninject;
@@ -13,8 +9,8 @@ using log4net;
 
 namespace libsannNETWorkbenchToolkit.Set
 {
-    using libsannNETWorkbenchToolkit.Utils;
-    using libsannNETWorkbenchToolkit.ExceptionHandling;
+    using Utils;
+    using ExceptionHandling;
 
     public partial class SetUi : FormLoggable
     {
@@ -96,7 +92,7 @@ namespace libsannNETWorkbenchToolkit.Set
             if(dialog.ShowDialog(this) == DialogResult.OK)
             {
                 Stream stream = dialog.OpenFile();
-                Export.SetToFile(stream);
+                Export.SetToFile(stream ,set);
             }            
         }
 
