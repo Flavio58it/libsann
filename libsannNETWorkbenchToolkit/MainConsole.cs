@@ -72,18 +72,19 @@ namespace libsannNETWorkbenchToolkit
                     List<double> outputs = new List<double>();
                     List<double> target = new List<double>();
 
-                    foreach (double[][] data in points)
-                    {
-                        outputs.AddRange(data[0]);
-                        target.AddRange(data[1]);
-                    }
+                    if (points != null)
+                        foreach (double[][] data in points)
+                        {
+                            outputs.AddRange(data[0]);
+                            target.AddRange(data[1]);
+                        }
 
                     chart.Series[0].Points.DataBindY(outputs);
                     chart.Series[1].Points.DataBindY(target);
 
                     break;
                 }
-                default:
+                case "weights_chart":
                 {
                     List<double> points = (values as List<double>);
                     chart.Series[0].Points.DataBindY(points);

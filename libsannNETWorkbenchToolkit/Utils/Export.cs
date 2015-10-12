@@ -40,6 +40,21 @@ namespace libsannNETWorkbenchToolkit.Utils
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="stream"></param>
+        /// <param name="serie"></param>
+        public static void SeriesToFile(Stream stream, double[] serie)
+        {
+            
+        }
+
+        /// <summary>
+        /// Write matrix to a stream. One column for each pattern
+        /// </summary>
+        /// <param name="matrix">Matrix to write</param>
+        /// <param name="writer">File stream</param>
         protected static void WriteMatrix(double[][] matrix, StreamWriter writer)
         {
             foreach (double[] row in matrix)

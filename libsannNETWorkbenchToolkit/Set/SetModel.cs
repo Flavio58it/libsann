@@ -32,7 +32,7 @@ namespace libsannNETWorkbenchToolkit.Set
             }
         }
 
-        public bool HasValidationData
+        public bool HasValidData
         {
             get
             {

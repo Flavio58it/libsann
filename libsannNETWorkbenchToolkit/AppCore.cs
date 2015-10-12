@@ -154,7 +154,7 @@ namespace libsannNETWorkbenchToolkit
                     {
                         logger.InfoFormat("Training success");
 
-                        if (!model.HasValidationData)
+                        if (!model.HasValidData)
                         {
                             returnCode = TrainingResults.NOT_VALIDATED;
                             logger.WarnFormat("Network has no validation data. Skip validation");
