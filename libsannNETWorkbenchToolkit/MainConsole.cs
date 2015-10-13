@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using Ninject;
 using System.Threading;
@@ -84,7 +86,7 @@ namespace libsannNETWorkbenchToolkit
 
                     break;
                 }
-                case "weights_chart":
+                default:
                 {
                     List<double> points = (values as List<double>);
                     chart.Series[0].Points.DataBindY(points);
@@ -236,7 +238,35 @@ namespace libsannNETWorkbenchToolkit
                 }
                 if (string.Equals((sender as ToolStripMenuItem).Name, "exportToolStripMenuItem"))
                 {
-                    // TODO: che fare qui??
+                    var dialog = new SaveFileDialog();
+                    dialog.Filter = "csv|*.csv";
+                    dialog.Title = "Export serie to file";
+                    dialog.ShowDialog(this);
+
+                    if (string.IsNullOrEmpty(dialog.FileName))
+                        return;
+
+                    using (StreamWriter w = new StreamWriter(dialog.FileName))
+                    {
+                        switch (this.tabCtrl.SelectedIndex)
+                        {
+                            case 0:
+                            {
+                                Export.SeriesToFile(w, core.CurrentMse.ToArray());
+                                break;
+                            }
+                            case 1:
+                            {
+                                Export.SeriesToFile(w, core.CurrentWeights.ToArray());
+                                break;
+                            }
+                            case 2:
+                            {
+                                Export.TargetOutputsToFile(w, core.CurrentOutputs);
+                                break;
+                            }
+                        }
+                    }
                 }
             }
             catch (Exception exception)

@@ -41,13 +41,51 @@ namespace libsannNETWorkbenchToolkit.Utils
         }
 
         /// <summary>
-        /// 
+        /// Print to file a simple data serie
         /// </summary>
         /// <param name="stream"></param>
-        /// <param name="serie"></param>
-        public static void SeriesToFile(Stream stream, double[] serie)
+        /// <param name="serie []"></param>
+        public static void SeriesToFile(StreamWriter stream, double[] serie, string name = "")
         {
-            
+            if (!serie.Any())
+                return;
+
+            stream.WriteLine("# Serie exported {0} {1}", DateTime.Now.ToLongDateString(), name);
+
+            foreach (var d in serie)
+            {
+                stream.WriteLine("{0};", d);
+            }
+        }
+
+        /// <summary>
+        /// Print to file a output-target data serie
+        /// </summary>
+        /// <param name="stream"></param>
+        /// <param name="serie [][]"></param>
+        public static void TargetOutputsToFile(StreamWriter stream, List<double[][]> serie, string name="")
+        {
+            if (!serie.Any())
+                return;
+
+            stream.WriteLine("# Serie exported {0} {1}", DateTime.Now.ToLongDateString(), name);
+
+            foreach (var pair in serie)
+            {
+                stream.WriteLine("Outputs;");
+                foreach (var output in pair[0])
+                {
+                    stream.Write("{0};",output);
+                }
+                stream.WriteLine();
+
+                stream.WriteLine("Target;");
+                foreach (var target in pair[1])
+                {
+                    stream.Write("{0};",target);
+                }
+                stream.WriteLine();
+            }
         }
 
         /// <summary>
