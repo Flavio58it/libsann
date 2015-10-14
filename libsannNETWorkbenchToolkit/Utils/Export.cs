@@ -10,6 +10,47 @@ namespace libsannNETWorkbenchToolkit.Utils
 {
     internal class Export
     {
+        public static readonly string SetExample =
+            "# Example of a complete set for XOR learning: " + Environment.NewLine +
+            "# i:4" + Environment.NewLine +
+            "# v:4" + Environment.NewLine +
+            "# [input]" + Environment.NewLine +
+            "# 0;0;" + Environment.NewLine +
+            "# 0;1" + Environment.NewLine +
+            "# 1;0;" + Environment.NewLine +
+            "# 1;1" + Environment.NewLine +
+            "# [output]" + Environment.NewLine +
+            "# 0;" + Environment.NewLine +
+            "# 1;" + Environment.NewLine +
+            "# 1;" + Environment.NewLine +
+            "# 0;" + Environment.NewLine +
+            "# [inValidation]" + Environment.NewLine +
+            "# 0.023;0.001;" + Environment.NewLine +
+            "# 0.09;1.1" + Environment.NewLine +
+            "# 0.98;0.0456;" + Environment.NewLine +
+            "# 1.01;0.95" + Environment.NewLine +
+            "# [outValidation]" + Environment.NewLine +
+            "# 0;" + Environment.NewLine +
+            "# 1;" + Environment.NewLine +
+            "# 1;" + Environment.NewLine +
+            "# 0;" + Environment.NewLine + Environment.NewLine;
+
+        public static string GenerateLayout()
+        {
+            return Export.SetExample +
+                   "# Build your example as following" + Environment.NewLine +
+                   "i:<num of trining patterns>" + Environment.NewLine +
+                   "v:<num of validation patterns>" + Environment.NewLine +
+                   "[input]" + Environment.NewLine +
+                   " ... " + Environment.NewLine +
+                   "[output]" + Environment.NewLine +
+                   " ... " + Environment.NewLine +
+                   "[inValidation]" + Environment.NewLine +
+                   " ... " + Environment.NewLine +
+                   "[outValidation]" + Environment.NewLine +
+                   " ... ";
+        }
+
         /// <summary>
         /// Print training set to file
         /// </summary>

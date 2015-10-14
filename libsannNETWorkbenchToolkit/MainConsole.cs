@@ -22,7 +22,7 @@ namespace libsannNETWorkbenchToolkit
         protected enum AppStatus
         {
             READY,
-            TRAINING
+            BUSY
         }
 
         public MainConsole()
@@ -99,7 +99,7 @@ namespace libsannNETWorkbenchToolkit
         {
             switch (status)
             {
-                case AppStatus.TRAINING:
+                case AppStatus.BUSY:
                 {
                     setupToolStripMenuItem.Enabled = false;
                     startWorkBenchToolStripMenuItem.Enabled = false;
@@ -176,6 +176,20 @@ namespace libsannNETWorkbenchToolkit
             {
                 if (string.Equals((sender as ToolStripMenuItem).Name, "generateExampleLayoutToolStripMenuItem"))
                 {
+                    var dialog = new SaveFileDialog();
+                    dialog.Filter = "csv|*.csv";
+                    dialog.Title = "Generate a set layout";
+                    dialog.ShowDialog(this);
+
+                    if (string.IsNullOrEmpty(dialog.FileName))
+                        return;
+
+                    var text = Export.GenerateLayout();
+
+                    using (var w = new StreamWriter(dialog.FileName))
+                    {
+                        w.Write(text);
+                    }
                 }
                 if (string.Equals((sender as ToolStripMenuItem).Name, "cSVToolStripMenuItem"))
                 {
@@ -189,7 +203,13 @@ namespace libsannNETWorkbenchToolkit
                     if (string.IsNullOrWhiteSpace(path))
                         return;
 
-                    SetLoader.LoadFromCsv(path);
+                    GuiBehavior(AppStatus.BUSY);
+
+                    int linesCount = SetLoader.LoadFromCsv(path);
+
+                    GuiBehavior(AppStatus.READY);
+
+                    logger.InfoFormat("Set loaded: {0}, read {1} lines", dialog.FileName, linesCount);
                 }
                 if (string.Equals((sender as ToolStripMenuItem).Name, "setToolStripMenuItem"))
                 {
@@ -208,7 +228,7 @@ namespace libsannNETWorkbenchToolkit
                 }
                 if (string.Equals((sender as ToolStripMenuItem).Name, "startWorkBenchToolStripMenuItem"))
                 {
-                    GuiBehavior(AppStatus.TRAINING);
+                    GuiBehavior(AppStatus.BUSY);
 
                     TrainingResults result = TrainingResults.INTERNAL_ERROR;
 

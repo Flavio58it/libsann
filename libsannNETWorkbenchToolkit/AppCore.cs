@@ -91,6 +91,8 @@ namespace libsannNETWorkbenchToolkit
             mse = new List<double>();
             outputs = new List<double[][]>();
             weights = new List<double>();
+
+            logger.InfoFormat("Neural network has been built");
         }
 
         public async Task<TrainingResults> Train(SetModel model)

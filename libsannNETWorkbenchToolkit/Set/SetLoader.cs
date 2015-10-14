@@ -10,57 +10,67 @@ namespace libsannNETWorkbenchToolkit.Set
 {
     public class SetLoader
     {
-        public static void LoadFromCsv(string path)
+        public static int LoadFromCsv(string path)
         {
-            if(File.Exists(path))
+            var lines = 0;
+            if (File.Exists(path))
             {
-                List<double[]> inMatrix = new List<double[]>();
-                List<double[]> outMatrix = new List<double[]>();
-                List<double[]> inValMatrix = new List<double[]>();
-                List<double[]> outValMatrix = new List<double[]>();
-                int size = 0;
-                int vSize = 0;
-
-                using(StreamReader r = new StreamReader(path))
+                lines = File.ReadLines(path).Count();
+                if (lines > 0)
                 {
-                    while(r.Peek() >= 0)
+                    List<double[]> inMatrix = new List<double[]>();
+                    List<double[]> outMatrix = new List<double[]>();
+                    List<double[]> inValMatrix = new List<double[]>();
+                    List<double[]> outValMatrix = new List<double[]>();
+                    int size = 0;
+                    int vSize = 0;
+
+                    using (StreamReader r = new StreamReader(path))
                     {
-                        string section = r.ReadLine();
-
-                        if(!section.StartsWith("#"))
+                        while (r.Peek() >= 0)
                         {
-                            if(size == 0 || vSize == 0)
-                            {
-                                if(section.StartsWith("i:"))
-                                {
-                                    if(!int.TryParse(section.Split(':').Last(), out size))
-                                        throw new Exception("");
-                                }
-                                if(section.StartsWith("v:"))
-                                {
-                                    if(!int.TryParse(section.Split(':').Last(), out vSize))
-                                        throw new Exception("");
-                                }
-                            }
+                            string section = r.ReadLine();
 
-                            if(string.Compare(section, "[input]") == 0)
+                            if (!section.StartsWith("#"))
                             {
-                                BuildMatrix(r, size, out inMatrix);
-                            } else if(string.Compare(section, "[output]") == 0)
-                            {
-                                BuildMatrix(r, size, out outMatrix);
-                            } else if(string.Compare(section, "[inValidation]") == 0)
-                            {
-                                BuildMatrix(r, vSize, out inValMatrix);
-                            } else if(string.Compare(section, "[outValidation]") == 0)
-                            {
-                                BuildMatrix(r, vSize, out outValMatrix);
+                                if (size == 0 || vSize == 0)
+                                {
+                                    if (section.StartsWith("i:"))
+                                    {
+                                        if (!int.TryParse(section.Split(':').Last(), out size))
+                                            throw new Exception("");
+                                    }
+                                    if (section.StartsWith("v:"))
+                                    {
+                                        if (!int.TryParse(section.Split(':').Last(), out vSize))
+                                            throw new Exception("");
+                                    }
+                                }
+
+                                if (string.Compare(section, "[input]") == 0)
+                                {
+                                    BuildMatrix(r, size, out inMatrix);
+                                }
+                                else if (string.Compare(section, "[output]") == 0)
+                                {
+                                    BuildMatrix(r, size, out outMatrix);
+                                }
+                                else if (string.Compare(section, "[inValidation]") == 0)
+                                {
+                                    BuildMatrix(r, vSize, out inValMatrix);
+                                }
+                                else if (string.Compare(section, "[outValidation]") == 0)
+                                {
+                                    BuildMatrix(r, vSize, out outValMatrix);
+                                }
                             }
                         }
                     }
+                    Assemble(inMatrix, outMatrix, inValMatrix, outValMatrix, size, vSize);
                 }
-                Assemble(inMatrix, outMatrix, inValMatrix, outValMatrix, size, vSize);
             }
+
+            return lines;
         }
 
         protected static void Assemble(List<double[]> i, List<double[]> o, List<double[]> vi, List<double[]> vo, int size, int vSize)

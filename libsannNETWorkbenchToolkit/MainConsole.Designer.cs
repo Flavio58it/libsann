@@ -38,6 +38,7 @@
             System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainConsole));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tabCtrl = new System.Windows.Forms.TabControl();
             this.tabPageErrorProgress = new System.Windows.Forms.TabPage();
@@ -326,9 +327,10 @@
             this.ClientSize = new System.Drawing.Size(642, 416);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainConsole";
-            this.Text = "                                        ";
+            this.Text = "Libsann .NET Workbench Toolkit                                 ";
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tabCtrl.ResumeLayout(false);
             this.tabPageErrorProgress.ResumeLayout(false);
