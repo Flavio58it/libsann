@@ -4,7 +4,7 @@ namespace libsann
 {
 	Neuron::Neuron()
 	{
-		// Object componenets initialization
+		// Object components initialization
 		IsBias = false;
 		potential = 0;
 		delta = 0;
