@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libsann", "libsann.vcxproj", "{D4F31963-6136-4FDA-8CE2-9DCC965C03A7}"
 EndProject
@@ -10,6 +10,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "libsannUnitTest", "libsannUnitTest\libsannUnitTest.csproj", "{B72E6A53-E40A-4C74-8E31-7B45CA526D1E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "libsannNETWorkbenchToolkit", "libsannNETWorkbenchToolkit\libsannNETWorkbenchToolkit.csproj", "{66F6D7DA-7399-4D6D-9030-59FF56A6B246}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{00697961-E27A-4FA2-88CE-CA444AC23DA0}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
