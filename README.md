@@ -33,7 +33,7 @@ You can choose a configuration, load patterns, set the learning method and see t
 
 ## How to use
 
-Usinge the library is very simple with any configuration, for example, to solve the parity problem with a multi perceptron network trained by resilient propagation:
+Using the library is very simple with any configuration, for example, to solve the parity problem with a multi perceptron network trained by resilient propagation:
 
 ```C#
 double[][] parityInput =
@@ -76,7 +76,8 @@ var hiddenLayers = new uint[1]
 };
 
 Mlp mlpNetwork = new Mlp(3, 1, hiddenLayers, 1);
-                 
+mlpNetwork.Instantiate();
+            
 double targetError = 0.05;
 uint maxEpochs = 10000;
 
@@ -101,7 +102,7 @@ foreach(double[] pattern in parityInputValidation)
 {
     double[] output = mlpNetwork.Exec(pattern);
     Console.WriteLine("-> Input: " + pattern[0] + " " + pattern[1]);
-    Console.WriteLine("-> Output: " + output[0] + " (ideal: " + parityOutput[i++][0] + ")");
+    Console.WriteLine("-> Output: " + output[0] + " (target: " + parityOutput[i++][0] + ")");
 }
 
 Console.WriteLine("-> Validation end");
