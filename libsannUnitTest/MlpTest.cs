@@ -15,36 +15,36 @@ namespace libsannUnitTest
     {
         double[][] parityInput =
             {
-                new double[] {0.0,0.0,0.0},
-                new double[] {0.0,0.0,1.0},
-                new double[] {0.0,1.0,0.0},
-                new double[] {0.0,1.0,1.0},
-                new double[] {1.0,0.0,0.0},
-                new double[] {1.0,0.0,1.0},
-                new double[] {1.0,1.0,0.0},
-                new double[] {1.0,1.0,1.0}
+                new [] {0.0,0.0,0.0},
+                new [] {0.0,0.0,1.0},
+                new [] {0.0,1.0,0.0},
+                new [] {0.0,1.0,1.0},
+                new [] {1.0,0.0,0.0},
+                new [] {1.0,0.0,1.0},
+                new [] {1.0,1.0,0.0},
+                new [] {1.0,1.0,1.0}
             };
         double[][] parityOutput =
             {
-                new double[] {1.0},
-                new double[] {0.0},
-                new double[] {0.0},
-                new double[] {1.0},
-                new double[] {0.0},
-                new double[] {1.0},
-                new double[] {1.0},
-                new double[] {0.0}
+                new [] {1.0},
+                new [] {0.0},
+                new [] {0.0},
+                new [] {1.0},
+                new [] {0.0},
+                new [] {1.0},
+                new [] {1.0},
+                new [] {0.0}
             };
         double[][] parityInputValidation =
             {
-                new double[] {0.01,0.0,0.05},
-                new double[] {0.0,0.08,0.9},
-                new double[] {0.08,1.0,0.07},
-                new double[] {0.054,0.95,0.95},
-                new double[] {1.0,0.0,0.06},
-                new double[] {0.9,0.0,0.94},
-                new double[] {0.99,1.0,0.09},
-                new double[] {0.92,0.9,0.95}
+                new [] {0.01,0.0,0.05},
+                new [] {0.0,0.08,0.9},
+                new [] {0.08,1.0,0.07},
+                new [] {0.054,0.95,0.95},
+                new [] {1.0,0.0,0.06},
+                new [] {0.9,0.0,0.94},
+                new [] {0.99,1.0,0.09},
+                new [] {0.92,0.9,0.95}
             };
 
         Mlp mlpNetwork;
